@@ -313,8 +313,12 @@
 <h2 id="Deploy-blog-with-github"><a href="#Deploy-blog-with-github" class="headerlink" title="Deploy blog with github"></a>Deploy blog with github</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> williamyi96.github.io</span><br><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
 <h2 id="Configuration"><a href="#Configuration" class="headerlink" title="Configuration"></a>Configuration</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gedit _config.yml</span><br></pre></td></tr></table></figure>
 <p>First deploy the title, subtile, description, author and language of this blog.</p>
-<p>deploy:<br>  type: git<br>  repo: <repository url=""><br>  branch: [branch]<br>branch default to be master.</repository></p>
-<h2 id="Test"><a href="#Test" class="headerlink" title="Test"></a>Test</h2><p>```bash<br>hexo new test<br>hexo g # generate this blog<br>hexo d # deploy this blog</p>
+<p>deploy:   </p>
+<pre><code>type: git
+repo: &lt;repository url&gt;
+branch: [branch]
+</code></pre><p>branch default to be master.</p>
+<h2 id="Test"><a href="#Test" class="headerlink" title="Test"></a>Test</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo new <span class="built_in">test</span></span><br><span class="line">hexo g <span class="comment"># generate this blog</span></span><br><span class="line">hexo d <span class="comment"># deploy this blog</span></span><br></pre></td></tr></table></figure>
 <p>All thing well down. More information can refer to <a href="https://github.com/limedroid/HexoLearning" target="_blank" rel="noopener">https://github.com/limedroid/HexoLearning</a>.</p>
 
           
