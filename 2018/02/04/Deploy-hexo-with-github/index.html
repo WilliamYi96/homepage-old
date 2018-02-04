@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next muse use-motion" lang="english">
+<html class="theme-next muse use-motion" lang="en">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Basic Skills," />
 
 
 
@@ -79,17 +79,18 @@
 
 
 
-<meta name="description" content="Researcher on cognitive science, computer vision, machine learning, chaos and fractal.">
+<meta name="description" content="This blog will introduce the deployment of hexo with github. Hexo is a powerful backup for the deployment of blog, just like WordPress.  PreparationsWe need to download some needed materials firstly:">
+<meta name="keywords" content="Basic Skills">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Deploy hexo with github">
 <meta property="og:url" content="http://yoursite.com/2018/02/04/Deploy-hexo-with-github/index.html">
 <meta property="og:site_name" content="Pursuing your dream">
-<meta property="og:description" content="Researcher on cognitive science, computer vision, machine learning, chaos and fractal.">
-<meta property="og:locale" content="english">
-<meta property="og:updated_time" content="2018-02-04T14:47:47.533Z">
+<meta property="og:description" content="This blog will introduce the deployment of hexo with github. Hexo is a powerful backup for the deployment of blog, just like WordPress.  PreparationsWe need to download some needed materials firstly:">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-02-04T15:04:31.541Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Deploy hexo with github">
-<meta name="twitter:description" content="Researcher on cognitive science, computer vision, machine learning, chaos and fractal.">
+<meta name="twitter:description" content="This blog will introduce the deployment of hexo with github. Hexo is a powerful backup for the deployment of blog, just like WordPress.  PreparationsWe need to download some needed materials firstly:">
 
 
 
@@ -137,7 +138,7 @@
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="english">
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
 
   
   
@@ -185,7 +186,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Startseite
+            Home
           </a>
         </li>
       
@@ -195,7 +196,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archiv
+            Archives
           </a>
         </li>
       
@@ -259,7 +260,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-02-04T22:47:47+08:00">
                 2018-02-04
@@ -299,7 +300,20 @@
       
 
       
-        
+        <p>This blog will introduce the deployment of hexo with github. Hexo is a powerful backup for the deployment of blog, just like WordPress. </p>
+<h2 id="Preparations"><a href="#Preparations" class="headerlink" title="Preparations"></a>Preparations</h2><p>We need to download some needed materials firstly:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install node npm</span><br><span class="line">sudo sudo install hexo-cli -g</span><br></pre></td></tr></table></figure>
+<h2 id="Deploying-Blog"><a href="#Deploying-Blog" class="headerlink" title="Deploying Blog"></a>Deploying Blog</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo init williamyi96.github.io</span><br><span class="line"><span class="built_in">cd</span> williamyi96.github.io</span><br><span class="line">npm install</span><br></pre></td></tr></table></figure>
+<h2 id="Generating-Static-Pages"><a href="#Generating-Static-Pages" class="headerlink" title="Generating Static Pages"></a>Generating Static Pages</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo s -- running locally</span><br></pre></td></tr></table></figure>
+<h2 id="Change-a-Theme"><a href="#Change-a-Theme" class="headerlink" title="Change a Theme"></a>Change a Theme</h2><p>More themes can refer to <a href="https://hexo.io/themes/" target="_blank" rel="noopener">https://hexo.io/themes/</a>, I choose the theme of hexo-theme-next this time.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/iissnan/hexo-theme-next themes/next</span><br></pre></td></tr></table></figure>
+<h2 id="Deploy-blog-with-github"><a href="#Deploy-blog-with-github" class="headerlink" title="Deploy blog with github"></a>Deploy blog with github</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> williamyi96.github.io</span><br><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+<h2 id="Configuration"><a href="#Configuration" class="headerlink" title="Configuration"></a>Configuration</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gedit _config.yml</span><br></pre></td></tr></table></figure>
+<p>First deploy the title, subtile, description, author and language of this blog.</p>
+<p>deploy:<br>  type: git<br>  repo: <repository url=""><br>  branch: [branch]<br>branch default to be master.</repository></p>
+<h2 id="Test"><a href="#Test" class="headerlink" title="Test"></a>Test</h2><p>```bash<br>hexo new test<br>hexo g # generate this blog<br>hexo d # deploy this blog</p>
+<p>All thing well down. More information can refer to <a href="https://github.com/limedroid/HexoLearning" target="_blank" rel="noopener">https://github.com/limedroid/HexoLearning</a>.</p>
+
       
     </div>
     
@@ -314,6 +328,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/Basic-Skills/" rel="tag"># Basic Skills</a>
+          
+        </div>
+      
 
       
       
@@ -323,8 +343,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/02/04/random-walk/" rel="next" title="random_walk">
-                <i class="fa fa-chevron-left"></i> random_walk
+              <a href="/2018/02/04/Random Walk Algorithms and Application/" rel="next" title="Random Walk -- Algorithms and Implementation">
+                <i class="fa fa-chevron-left"></i> Random Walk -- Algorithms and Implementation
               </a>
             
           </div>
@@ -383,8 +403,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -399,14 +428,23 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">3</span>
-                  <span class="site-state-item-name">Artikel</span>
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">posts</span>
                 </a>
               </div>
             
 
             
 
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
             
 
           </nav>
@@ -426,6 +464,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Preparations"><span class="nav-number">1.</span> <span class="nav-text">Preparations</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Deploying-Blog"><span class="nav-number">2.</span> <span class="nav-text">Deploying Blog</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Generating-Static-Pages"><span class="nav-number">3.</span> <span class="nav-text">Generating Static Pages</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Change-a-Theme"><span class="nav-number">4.</span> <span class="nav-text">Change a Theme</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Deploy-blog-with-github"><span class="nav-number">5.</span> <span class="nav-text">Deploy blog with github</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Configuration"><span class="nav-number">6.</span> <span class="nav-text">Configuration</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Test"><span class="nav-number">7.</span> <span class="nav-text">Test</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -450,7 +504,7 @@
 </div>
 
 
-  <div class="powered-by">Erstellt mit  <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
 
 
 
