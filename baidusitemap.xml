@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+
+    
+    
+    
+    
+  <url>
+    <loc>williamyi96.github.io/2018/02/05/random-walk/</loc>
+    <lastmod>2018-02-05T09:17:27.322Z</lastmod>
+    <data>
+        <display>
+        <title>Random Walk Algorithm and Monte Carlo Simulation</title>
+        <pubTime>2018-02-05T04:33:09.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>williamyi96.github.io/2018/02/04/Deploy-hexo-with-github/</loc>
+    <lastmod>2018-02-04T15:06:33.770Z</lastmod>
+    <data>
+        <display>
+        <title>Deploy hexo with github</title>
+        <pubTime>2018-02-04T14:47:47.000Z</pubTime>
+        
+        <tag>Basic Skills</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+</urlset>
