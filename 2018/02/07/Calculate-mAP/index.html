@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-3232.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.1616.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="mean Average Precision (mAP) is an essential evaluation method in the field of object detection, this blog will give a demo of mAP calculate code first, then introduce the general framework of batch r">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Calculate mAP">
+<meta property="og:url" content="williamyi96.github.io/2018/02/07/Calculate-mAP/index.html">
+<meta property="og:site_name" content="Pursuing your dream">
+<meta property="og:description" content="mean Average Precision (mAP) is an essential evaluation method in the field of object detection, this blog will give a demo of mAP calculate code first, then introduce the general framework of batch r">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-02-07T15:02:30.920Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Calculate mAP">
+<meta name="twitter:description" content="mean Average Precision (mAP) is an essential evaluation method in the field of object detection, this blog will give a demo of mAP calculate code first, then introduce the general framework of batch r">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="williamyi96.github.io/2018/02/07/Calculate-mAP/"/>
+
+
+
+
+
+  <title>Calculate mAP | Pursuing your dream</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Pursuing your dream</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            Schedule
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="williamyi96.github.io/2018/02/07/Calculate-mAP/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kai Yi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avater.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Pursuing your dream">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Calculate mAP</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-02-07T22:51:09+08:00">
+                2018-02-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>mean Average Precision (mAP) is an essential evaluation method in the field of object detection, this blog will give a demo of mAP calculate code first, then introduce the general framework of batch result processing.</p>
+<p>The implementation of a demo code is:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">```python</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">    Simple Usage example (with 3 images)</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="keyword">from</span> mean_average_precision.detection_map <span class="keyword">import</span> DetectionMAP</span><br><span class="line"><span class="keyword">from</span> mean_average_precision.utils.show_frame <span class="keyword">import</span> show_frame</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt  </span><br><span class="line"></span><br><span class="line">pred_bb1 = np.array([[<span class="number">0.880688</span>, <span class="number">0.44609185</span>, <span class="number">0.95696718</span>, <span class="number">0.6476958</span>],</span><br><span class="line">                     [<span class="number">0.84020283</span>, <span class="number">0.45787981</span>, <span class="number">0.99351478</span>, <span class="number">0.64294884</span>],</span><br><span class="line">                     [<span class="number">0.78723741</span>, <span class="number">0.61799151</span>, <span class="number">0.9083041</span>, <span class="number">0.75623035</span>],</span><br><span class="line">                     [<span class="number">0.22078986</span>, <span class="number">0.30151826</span>, <span class="number">0.36679274</span>, <span class="number">0.40551913</span>],</span><br><span class="line">                     [<span class="number">0.0041579</span>, <span class="number">0.48359361</span>, <span class="number">0.06867643</span>, <span class="number">0.60145104</span>],</span><br><span class="line">                     [<span class="number">0.4731401</span>, <span class="number">0.33888632</span>, <span class="number">0.75164948</span>, <span class="number">0.80546954</span>],</span><br><span class="line">                     [<span class="number">0.75489414</span>, <span class="number">0.75228018</span>, <span class="number">0.87922037</span>, <span class="number">0.88110524</span>],</span><br><span class="line">                     [<span class="number">0.21953127</span>, <span class="number">0.77934921</span>, <span class="number">0.34853417</span>, <span class="number">0.90626764</span>],</span><br><span class="line">                     [<span class="number">0.81</span>, <span class="number">0.11</span>, <span class="number">0.91</span>, <span class="number">0.21</span>]])</span><br><span class="line">pred_cls1 = np.array([<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">3</span>])</span><br><span class="line">pred_conf1 = np.array([<span class="number">0.95</span>, <span class="number">0.75</span>, <span class="number">0.4</span>, <span class="number">0.3</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0.75</span>, <span class="number">0.5</span>, <span class="number">0.8</span>])</span><br><span class="line">gt_bb1 = np.array([[<span class="number">0.86132812</span>, <span class="number">0.48242188</span>, <span class="number">0.97460938</span>, <span class="number">0.6171875</span>],</span><br><span class="line">                   [<span class="number">0.18554688</span>, <span class="number">0.234375</span>, <span class="number">0.36132812</span>, <span class="number">0.41601562</span>],</span><br><span class="line">                   [<span class="number">0.</span>, <span class="number">0.47265625</span>, <span class="number">0.0703125</span>, <span class="number">0.62109375</span>],</span><br><span class="line">                   [<span class="number">0.47070312</span>, <span class="number">0.3125</span>, <span class="number">0.77929688</span>, <span class="number">0.78125</span>],</span><br><span class="line">                   [<span class="number">0.8</span>, <span class="number">0.1</span>, <span class="number">0.9</span>, <span class="number">0.2</span>]])</span><br><span class="line">gt_cls1 = np.array([<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>])</span><br><span class="line"></span><br><span class="line">pred_bb2 = np.array([[<span class="number">0.6</span>, <span class="number">0.4</span>, <span class="number">0.8</span>, <span class="number">0.6</span>],</span><br><span class="line">                     [<span class="number">0.45</span>, <span class="number">0.24</span>, <span class="number">0.55179688</span>, <span class="number">0.35179688</span>],</span><br><span class="line">                     [<span class="number">0.2</span>, <span class="number">0.15</span>, <span class="number">0.29</span>, <span class="number">0.30</span>],</span><br><span class="line">                     [<span class="number">0.95</span>, <span class="number">0.55</span>, <span class="number">0.99</span>, <span class="number">0.66670889</span>],</span><br><span class="line">                     [<span class="number">0.62373358</span>, <span class="number">0.43393397</span>, <span class="number">0.82830238</span>, <span class="number">0.68219709</span>],</span><br><span class="line">                     [<span class="number">0.8814062</span>, <span class="number">0.8921875</span>, <span class="number">0.94453125</span>, <span class="number">0.9704688</span>],</span><br><span class="line">                     [<span class="number">0.8514062</span>, <span class="number">0.9121875</span>, <span class="number">0.99453125</span>, <span class="number">0.9804688</span>],</span><br><span class="line">                     [<span class="number">0.40</span>, <span class="number">0.44</span>, <span class="number">0.55</span>, <span class="number">0.56</span>],</span><br><span class="line">                     [<span class="number">0.1672115</span>, <span class="number">0.435711</span>, <span class="number">0.32729435</span>, <span class="number">0.57853043</span>],</span><br><span class="line">                     [<span class="number">0.18287398</span>, <span class="number">0.15450388</span>, <span class="number">0.27082703</span>, <span class="number">0.31132805</span>],</span><br><span class="line">                     [<span class="number">0.3713485</span>, <span class="number">0.24020095</span>, <span class="number">0.62879527</span>, <span class="number">0.48929602</span>]])</span><br><span class="line">pred_cls2 = np.array([<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>])</span><br><span class="line">pred_conf2 = np.array([<span class="number">0.75</span>, <span class="number">0.78</span>, <span class="number">0.83</span>, <span class="number">0.42</span>, <span class="number">0.2457653</span>,</span><br><span class="line">                       <span class="number">0.95</span>, <span class="number">0.5</span>, <span class="number">0.81003532</span>, <span class="number">0.18837614</span>, <span class="number">0.77496605</span>, <span class="number">0.27333026</span>])</span><br><span class="line">gt_bb2 = np.array([[<span class="number">0.625</span>, <span class="number">0.43554688</span>, <span class="number">0.828125</span>, <span class="number">0.67382812</span>],</span><br><span class="line">                   [<span class="number">0.45898438</span>, <span class="number">0.25390625</span>, <span class="number">0.59179688</span>, <span class="number">0.34179688</span>],</span><br><span class="line">                   [<span class="number">0.18164062</span>, <span class="number">0.16015625</span>, <span class="number">0.28125</span>, <span class="number">0.31054688</span>],</span><br><span class="line">                   [<span class="number">0.8914062</span>, <span class="number">0.8821875</span>, <span class="number">0.95453125</span>, <span class="number">0.9804688</span>],</span><br><span class="line">                   [<span class="number">0.40234375</span>, <span class="number">0.44921875</span>, <span class="number">0.55078125</span>, <span class="number">0.56445312</span>],</span><br><span class="line">                   [<span class="number">0.16796875</span>, <span class="number">0.43554688</span>, <span class="number">0.328125</span>, <span class="number">0.578125</span>]])</span><br><span class="line">gt_cls2 = np.array([<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>])</span><br><span class="line"></span><br><span class="line">pred_bb3 = np.array([[<span class="number">0.74</span>, <span class="number">0.58</span>, <span class="number">1.0</span>, <span class="number">0.83</span>],</span><br><span class="line">                     [<span class="number">0.75</span>, <span class="number">0.575</span>, <span class="number">0.99</span>, <span class="number">0.83</span>],</span><br><span class="line">                     [<span class="number">0.57</span>, <span class="number">0.23</span>, <span class="number">1.0</span>, <span class="number">0.62</span>],</span><br><span class="line">                     [<span class="number">0.59</span>, <span class="number">0.24</span>, <span class="number">1.0</span>, <span class="number">0.63</span>],</span><br><span class="line">                     [<span class="number">0.55</span>, <span class="number">0.24</span>, <span class="number">0.33</span>, <span class="number">0.7</span>],</span><br><span class="line">                     [<span class="number">0.12</span>, <span class="number">0.21</span>, <span class="number">0.31</span>, <span class="number">0.39</span>],</span><br><span class="line">                     [<span class="number">0.1240625</span>, <span class="number">0.2109375</span>, <span class="number">0.859375</span>, <span class="number">0.39453125</span>],</span><br><span class="line">                     [<span class="number">2.86702722e-01</span>, <span class="number">5.87677717e-01</span>, <span class="number">3.90843153e-01</span>, <span class="number">7.14454949e-01</span>],</span><br><span class="line">                     [<span class="number">2.87590116e-01</span>, <span class="number">8.76132399e-02</span>, <span class="number">3.79709303e-01</span>, <span class="number">2.05121845e-01</span>]])</span><br><span class="line">pred_cls3 = np.array(</span><br><span class="line">    [<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>])</span><br><span class="line">pred_conf3 = np.array([<span class="number">0.75</span>, <span class="number">0.90</span>, <span class="number">0.9</span>, <span class="number">0.9</span>, <span class="number">0.5</span>, <span class="number">0.84</span>,</span><br><span class="line">                       <span class="number">0.1</span>, <span class="number">0.2363426</span>, <span class="number">0.02707205</span>])</span><br><span class="line">gt_bb3 = np.array([[<span class="number">0.74609375</span>, <span class="number">0.58007812</span>, <span class="number">1.05273438</span>, <span class="number">0.83007812</span>],</span><br><span class="line">                   [<span class="number">0.57226562</span>, <span class="number">0.234375</span>, <span class="number">1.14453125</span>, <span class="number">0.62890625</span>],</span><br><span class="line">                   [<span class="number">0.1240625</span>, <span class="number">0.2109375</span>, <span class="number">0.329375</span>, <span class="number">0.39453125</span>]])</span><br><span class="line">gt_cls3 = np.array([<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>])</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    frames = [(pred_bb1, pred_cls1, pred_conf1, gt_bb1, gt_cls1),</span><br><span class="line">              (pred_bb2, pred_cls2, pred_conf2, gt_bb2, gt_cls2),</span><br><span class="line">              (pred_bb3, pred_cls3, pred_conf3, gt_bb3, gt_cls3)]</span><br><span class="line">    n_class = <span class="number">4</span></span><br><span class="line"></span><br><span class="line">    mAP = DetectionMAP(n_class)</span><br><span class="line">    <span class="keyword">for</span> i, frame <span class="keyword">in</span> enumerate(frames):</span><br><span class="line">        print(<span class="string">"Evaluate frame &#123;&#125;"</span>.format(i))</span><br><span class="line">        show_frame(*frame)</span><br><span class="line">        mAP.evaluate(*frame)</span><br><span class="line"></span><br><span class="line">    mAP.plot()</span><br><span class="line">    plt.show()</span><br><span class="line">    <span class="comment">#plt.savefig("pr_curve_example.png")</span></span><br></pre></td></tr></table></figure>
+<p>Source code can be found at <a href="https://github.com/MathGaron/mean_average_precision" target="_blank" rel="noopener">https://github.com/MathGaron/mean_average_precision</a>.</p>
+<p>Now, generalize this method into batch labels processing.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> mean_average_precision.detection_map <span class="keyword">import</span> DetectionMAP</span><br><span class="line"><span class="keyword">from</span> mean_average_precision.utils.show_frame <span class="keyword">import</span> show_frame</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_frame</span><span class="params">(f_label, f_gt)</span>:</span></span><br><span class="line">    f1 = open(f_label, <span class="string">'r'</span>)</span><br><span class="line">    f2 = open(f_gt, <span class="string">'r'</span>)</span><br><span class="line">    labels = f1.readlines()</span><br><span class="line">    gts = f2.readlines()</span><br><span class="line">    pred_bb = []</span><br><span class="line">    pred_cls = []</span><br><span class="line">    pred_conf = []</span><br><span class="line">    <span class="keyword">for</span> label <span class="keyword">in</span> labels:</span><br><span class="line">        label = label.strip().split(<span class="string">','</span>)</span><br><span class="line">        pred_bb.append([float(label[<span class="number">0</span>]), float(label[<span class="number">1</span>]), float(label[<span class="number">2</span>]), float(label[<span class="number">3</span>])])</span><br><span class="line">        pred_cls.append(int(label[<span class="number">4</span>]))</span><br><span class="line">        pred_conf.append(float(label[<span class="number">5</span>]))</span><br><span class="line">    pred_bb = np.array(pred_bb)</span><br><span class="line">    pred_cls = np.array(pred_cls)</span><br><span class="line">    pred_conf = np.array(pred_conf)</span><br><span class="line"></span><br><span class="line">    gt_bb = []</span><br><span class="line">    gt_cls = []</span><br><span class="line">    <span class="keyword">for</span> gt <span class="keyword">in</span> gts:</span><br><span class="line">        gt = gt.strip().split(<span class="string">','</span>)</span><br><span class="line">        gt_bb.append([float(gt[<span class="number">0</span>]), float(gt[<span class="number">1</span>]), float(gt[<span class="number">2</span>]), float(gt[<span class="number">3</span>])])</span><br><span class="line">        gt_cls.append(int(gt[<span class="number">4</span>]))</span><br><span class="line">    gt_bb = np.array(gt_bb)</span><br><span class="line">    gt_cls = np.array(gt_cls)</span><br><span class="line">    frame = (pred_bb, pred_cls, pred_conf, gt_bb, gt_cls)</span><br><span class="line">    <span class="keyword">return</span> frame</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    dir_gt = os.listdir(<span class="string">'../data/KITTI/testing/label_2/'</span>)</span><br><span class="line">    dir_label = os.listdir(<span class="string">'../out/convlstm/labels/'</span>)</span><br><span class="line">    <span class="comment">#get_frame('../out/origin/labels/000001.txt', '../data/KITTI/testing/label_2/000001.txt')</span></span><br><span class="line">    frames = []</span><br><span class="line">    <span class="keyword">for</span> idx <span class="keyword">in</span> range(<span class="number">0</span>, len(dir_gt)):</span><br><span class="line">        f_label = <span class="string">'../out/convlstm/labels/'</span> + dir_label[idx]</span><br><span class="line">        f_gt = <span class="string">'../data/KITTI/testing/label_2/'</span> + dir_gt[idx]</span><br><span class="line">        frame = get_frame(f_label, f_gt)</span><br><span class="line">        frames.append(frame)</span><br><span class="line">    <span class="comment">#print(len(frames))</span></span><br><span class="line">    n_class = <span class="number">13</span></span><br><span class="line"></span><br><span class="line">    mAP = DetectionMAP(n_class)</span><br><span class="line">    <span class="keyword">for</span> i, frame <span class="keyword">in</span> enumerate(frames):</span><br><span class="line">        print(<span class="string">"Evaluate frame &#123;&#125;"</span>.format(i))</span><br><span class="line">        <span class="comment">#show_frame(*frame)</span></span><br><span class="line">        mAP.evaluate(*frame)</span><br><span class="line"></span><br><span class="line">    mAP.plot()</span><br><span class="line">    plt.show()</span><br><span class="line">    plt.savefig(<span class="string">"squeezedet.png"</span>)</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/02/06/Get-the-mean-color-of-batch-pictures/" rel="next" title="Get the mean color of batch pictures">
+                <i class="fa fa-chevron-left"></i> Get the mean color of batch pictures
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avater.jpg"
+                alt="Kai Yi" />
+            
+              <p class="site-author-name" itemprop="name">Kai Yi</p>
+              <p class="site-description motion-element" itemprop="description">Researcher on cognitive science, computer vision, machine learning, chaos and fractal.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/williamyi96" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://scholar.google.com/citations?user=r08j39wAAAAJ" target="_blank" title="Scholar">
+                      
+                        <i class="fa fa-fw fa-google"></i>Scholar</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kai Yi</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
