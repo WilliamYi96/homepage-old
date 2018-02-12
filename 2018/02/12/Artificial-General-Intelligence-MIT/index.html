@@ -88,7 +88,7 @@
 <meta property="og:locale" content="en">
 <meta property="og:image" content="williamyi96.github.io/2018/02/12/Artificial-General-Intelligence-MIT/images/dl-human-machine.png">
 <meta property="og:image" content="williamyi96.github.io/2018/02/12/Artificial-General-Intelligence-MIT/images/timeline-AGI.png">
-<meta property="og:updated_time" content="2018-02-12T06:27:03.158Z">
+<meta property="og:updated_time" content="2018-02-12T06:40:18.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Artificial General Intelligence (MIT)">
 <meta name="twitter:description" content="Nowadays, deep learning methods have achieved human even superhuman performance on several tasks such as image classification, game-playing on Atari 2600. However, we are still far away from human-lik">
@@ -342,42 +342,25 @@
       
 
       
-        <p>Nowadays, deep learning methods have achieved human even superhuman performance on several tasks such as image classification, game-playing on Atari 2600. However, we are still far away from human-like artificial intelligence.</p>
-<p>This blog is the notes and thinking of the first class of Artificial General Intelligence (AGI). I will review the shocking opinion mentioned on this course.</p>
+        <p>Nowadays, deep learning methods have achieved human even superhuman performance on several tasks such as image classification, game-playing on Atari 2600. However, we are still far away from human-like artificial intelligence.<br>This blog is the notes and thinking of the first class of Artificial General Intelligence (AGI). I will review the shocking opinion mentioned on this course.</p>
 <h2 id="Deep-learning-is-a-kind-of-representation-learning"><a href="#Deep-learning-is-a-kind-of-representation-learning" class="headerlink" title="Deep learning is a kind of representation learning"></a>Deep learning is a kind of representation learning</h2><p>Deep learning is a kind of representation learning just like my tutor once said (The core elements of deep learning is representation and computing while the major parts of cognitive science is the understanding of objects). Representation learning is a kind of machine learning. Machine learning is one kind of artificial intelligence. </p>
-<h2 id="Difference-between-biological-brains-and-ANN"><a href="#Difference-between-biological-brains-and-ANN" class="headerlink" title="Difference between biological brains and ANN:"></a>Difference between biological brains and ANN:</h2><pre><code>1). **Parameters:** Human brains have ~10,000,000 times synapses than artificial neural network.
-
-2). **Topology:** Human brains have no &quot;layers&quot;. Topology is complicated.
-
-3). **Async:** The human brain works asynchronously, ANNs work synchronously.
-
-4). **Learning Algorithms:** ANNs use gradient descent for learning. Human brains use ... (we don&apos;t know).
-
-5). **Processing Speed:** Single biological neurons are slow, while standard neurons in ANNs are fast.
-
-6). **Power consumption:** Biological neural networks use very little power compared to artificial networks.
-
-7). **Stages:** Biological networks usually don&apos;t stop/start learning. ANNs have different fitting (train) and prediction (evaluation) phases.
-</code></pre><p>The similarity between them is they are both distributed computation on a large scale. </p>
+<h2 id="Difference-between-biological-brains-and-ANN"><a href="#Difference-between-biological-brains-and-ANN" class="headerlink" title="Difference between biological brains and ANN:"></a>Difference between biological brains and ANN:</h2><p>1). <strong>Parameters:</strong> Human brains have ~10,000,000 times synapses than artificial neural network.<br>2). <strong>Topology:</strong> Human brains have no “layers”. Topology is complicated.<br>3). <strong>Async:</strong> The human brain works asynchronously, ANNs work synchronously.<br>4). <strong>Learning Algorithms:</strong> ANNs use gradient descent for learning. Human brains use … (we don’t know).<br>5). <strong>Processing Speed:</strong> Single biological neurons are slow, while standard neurons in ANNs are fast.<br>6). <strong>Power consumption:</strong> Biological neural networks use very little power compared to artificial networks.<br>7). <strong>Stages:</strong> Biological networks usually don’t stop/start learning. ANNs have different fitting (train) and prediction (evaluation) phases.</p>
+<p>The similarity between them is they are both distributed computation on a large scale. </p>
 <h2 id="The-illustration-of-deep-learning-from-human-and-machine-is-full-of-insights"><a href="#The-illustration-of-deep-learning-from-human-and-machine-is-full-of-insights" class="headerlink" title="The illustration of deep learning from human and machine is full of insights."></a>The illustration of deep learning from human and machine is full of insights.</h2><p><img src="images/dl-human-machine.png" alt=""></p>
 <h2 id="Current-Challenge"><a href="#Current-Challenge" class="headerlink" title="Current Challenge"></a>Current Challenge</h2><ul>
-<li><p><strong>Transfer learning</strong>: Unable to transfer representation to most reasonably related domains except in specialized formulations.</p>
-<p>  • <strong>Understanding</strong>: Lacks “reasoning” or ability to truly derive “understanding” as previously defined on anything but specialized problem formulations. (Definition used: Ability to turn complex information to into simple, useful<br>information.)</p>
-</li>
-<li><p>Requires <strong>big</strong> data: inefficient at learning from data </p>
-</li>
-<li><p>Requires <strong>supervised</strong> data: costly to annotate real-world data</p>
-</li>
-<li><p><strong>Not fully automated</strong>: Needs hyperparameter tuning for training: learning rate, loss function, mini-batch size, training iterations, momentum, optimizer selection, etc.</p>
-</li>
-<li><p><strong>Reward</strong>: Defining a good reward function is difficult.</p>
-</li>
-<li><p><strong>Transparency</strong>: Neural networks are for the most part black boxes (for real world applications) even with tools that visualize various aspects of their operation.</p>
-</li>
-<li><p><strong>Edge cases</strong>: Deep learning is not good at dealing with edge cases.</p>
-</li>
+<li><strong>Transfer learning</strong>: Unable to transfer representation to most reasonably related domains except in specialized formulations.<br>  • <strong>Understanding</strong>: Lacks “reasoning” or ability to truly derive “understanding” as previously defined on anything but specialized problem formulations. (Definition used: Ability to turn complex information to into simple, useful information.)</li>
+<li>Requires <strong>big</strong> data: inefficient at learning from data </li>
+<li>Requires <strong>supervised</strong> data: costly to annotate real-world data</li>
+<li><strong>Not fully automated</strong>: Needs hyperparameter tuning for training: learning rate, loss function, mini-batch size, training iterations, momentum, optimizer selection, etc.</li>
+<li><strong>Reward</strong>: Defining a good reward function is difficult.</li>
+<li><strong>Transparency</strong>: Neural networks are for the most part black boxes (for real world applications) even with tools that visualize various aspects of their operation.</li>
+<li><strong>Edge cases</strong>: Deep learning is not good at dealing with edge cases.</li>
 </ul>
-<h2 id="Timeline"><a href="#Timeline" class="headerlink" title="Timeline"></a>Timeline</h2><p><img src="images/timeline-AGI.png" alt=""></p>
+<h2 id="Timeline"><a href="#Timeline" class="headerlink" title="Timeline"></a>Timeline</h2><!-- ![](images/timeline-AGI.png = 100) -->
+<!-- ![Course Timeline](images/timeline-AGI.png){:height="50%" width="50%"} -->
+<div align="left"><br><img src="images/timeline-AGI.png" width="80%" height="80%"><br></div>
+
+<p>Picture above is the timeline of Artificial General Intelligence of MIT. More info can refer to <a href="https://agi.mit.edu/" target="_blank" rel="noopener">https://agi.mit.edu/</a>.</p>
 
       
     </div>
@@ -411,6 +394,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/02/12/A-Glimpse-of-Deep-Reinforcement-Learning-and-DQN/" rel="prev" title="A Glimpse of Deep Reinforcement Learning and DQN">
+                A Glimpse of Deep Reinforcement Learning and DQN <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -491,7 +478,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

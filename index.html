@@ -272,6 +272,200 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="williamyi96.github.io/2018/02/12/A-Glimpse-of-Deep-Reinforcement-Learning-and-DQN/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kai Yi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avater.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Pursuing your dream">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/02/12/A-Glimpse-of-Deep-Reinforcement-Learning-and-DQN/" itemprop="url">A Glimpse of Deep Reinforcement Learning and DQN</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-02-12T16:51:38+08:00">
+                2018-02-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>In this article, I will review the core concepts of deep reinforcement learning and introduce Deep Q-Network (DQN). </p>
+<h1 id="Basic-Introduction"><a href="#Basic-Introduction" class="headerlink" title="Basic Introduction"></a>Basic Introduction</h1><p>We have witnessed the power of deep learning about solving high-computation problems and the strength of reinforcement learning at decision-making. Trying to combine those two methods is an obvious thing. This idea contributes to the appear of deep reinforcement learning. DQN, which was first proposed by OpenAI at the paper named “Play Atari with Deep Reinforcement Learning”, is a typical algorithm of deep reinforcement learning.</p>
+<p>Meanwhile, the basic assumption behind reinforcement learning is that the agent can have a deeper understanding about the environment by interacting with it. And we can increase the ability to reach the goal after several iterations.</p>
+<h1 id="MDPs"><a href="#MDPs" class="headerlink" title="MDPs"></a>MDPs</h1><p>Markov Decision Process satisfies the markov property, which is that the nest state is only determined by current state and current action instead of the history. </p>
+<div align="left"><br><img src="http://img.blog.csdn.net/20170814092318915?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd2lsbGlhbXlpOTY=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br></div>
+
+<p>MDPs consists of 5 components.</p>
+<pre><code>S: the finite states sets
+A: the finite actions sets
+P: the state transition matrix
+R: the reward function
+gama: the discount factor
+</code></pre><h1 id="Value-Function"><a href="#Value-Function" class="headerlink" title="Value Function"></a>Value Function</h1><p>We introduce the value function to measure the long-term reward and judge the policy in order to make better choice.</p>
+<p>Value function can be normalized to bellman equation, the standard bellman equation can be solve by iteration.</p>
+<p>Overall, there are three different ways to solve the value function:</p>
+<ul>
+<li>Dynamic  programming</li>
+<li>Monte-Carlo method</li>
+<li>Temporal differential method</li>
+</ul>
+<h2 id="Action-Value-function"><a href="#Action-Value-function" class="headerlink" title="Action-Value function"></a>Action-Value function</h2><p>We aim at analyzing the value of different actions towards current state, which brings about the action-value function.</p>
+<p>We can regularize the action-state function into these form:</p>
+<p><img src="http://img.blog.csdn.net/20170814092307877?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd2lsbGlhbXlpOTY=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<h2 id="Optimal-Value-function"><a href="#Optimal-Value-function" class="headerlink" title="Optimal Value function"></a>Optimal Value function</h2><p>We can normalize it into this form:</p>
+<p><img src="http://img.blog.csdn.net/20170814092254146?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd2lsbGlhbXlpOTY=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p>Then, after put it into action-value function, we can get :</p>
+<p><img src="http://img.blog.csdn.net/20170814092242892?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd2lsbGlhbXlpOTY=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<h1 id="Iteration-based-on-Bellman-Equation"><a href="#Iteration-based-on-Bellman-Equation" class="headerlink" title="Iteration based on Bellman Equation:"></a>Iteration based on Bellman Equation:</h1><p>Widely used iteration methods designed to solve bellman equation can be categorized to policy iteration and value iteration.</p>
+<h2 id="Policy-Iteration"><a href="#Policy-Iteration" class="headerlink" title="Policy Iteration"></a>Policy Iteration</h2><ol>
+<li>Policy Evaluation: Estimate Vpi </li>
+<li>Policy Improvement: Generate pi’ &gt;= pi</li>
+</ol>
+<p>pi can be converged to optimal proved theoretically.</p>
+<h2 id="Value-Iteration"><a href="#Value-Iteration" class="headerlink" title="Value Iteration"></a>Value Iteration</h2><p>Value iteration is based on Bellman Optimal equation and convert it into iteration form.</p>
+<h2 id="Diff-between-policy-iteration-and-value-iteration"><a href="#Diff-between-policy-iteration-and-value-iteration" class="headerlink" title="Diff. between policy iteration and value iteration"></a>Diff. between policy iteration and value iteration</h2><p>Policy iteration updates value by using the naive bellman equation. Meanwhile, the optimal value(vpi) is the optimal value at current policy, also called the estimation of a particular policy.</p>
+<p>Value iteration update value by using Bellman Optimal Equation. Meanwhile, the optimal value(vpi) is the optimal value at current state.</p>
+<p>Value iteration is more direct concerning getting an optimal value.</p>
+<h1 id="Q-Learning"><a href="#Q-Learning" class="headerlink" title="Q-Learning"></a>Q-Learning</h1><p>The basic idea of Q learning is based on value iteration. We update Q value every value iteration, which means all the state and action. But due to the fact that we just get limited examples, Q learning puts forward a new way to update Q value:</p>
+<p><img src="http://img.blog.csdn.net/20170814092227003?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd2lsbGlhbXlpOTY=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p>We can demiss the influence of error like gradient descent method, which converges to the optimal Q value.</p>
+<h2 id="Exploration-and-Exploitation"><a href="#Exploration-and-Exploitation" class="headerlink" title="Exploration and Exploitation"></a>Exploration and Exploitation</h2><ul>
+<li>Off-policy: Need a policy to generate action, which means the selected policy is not the optimal policy.</li>
+<li>Model-free: Not consider about the model(the detail information about the env), just care about seen env and reward.</li>
+</ul>
+<h3 id="Generate-action-by-policy"><a href="#Generate-action-by-policy" class="headerlink" title="Generate action by policy"></a>Generate action by policy</h3><ul>
+<li>Exploration: Generate an action randomly. Benefitial to update Q value in order to get better policy.</li>
+<li>Exploitation: Calculate an optimal action based on current Q value. Good to test whether an algorithm works while hard to update Q value.</li>
+</ul>
+<h3 id="ita-greedy-policy"><a href="#ita-greedy-policy" class="headerlink" title="ita-greedy policy"></a>ita-greedy policy</h3><p>We can combine exploration and exploitation by setting a fixed threshold ita, which method is called ita-greedy policy.</p>
+<h1 id="DQN"><a href="#DQN" class="headerlink" title="DQN"></a>DQN</h1><h2 id="Dimemsion-Disaster"><a href="#Dimemsion-Disaster" class="headerlink" title="Dimemsion Disaster"></a>Dimemsion Disaster</h2><p>We store Q(s,a) in a table, which represents all the states and actions. But when we deal with image problems, the computation will be exponent that even can not be solved. So we need to reflect how to optimal the value function in another way.</p>
+<p>Firstly, we introduced Value Function Approximation.</p>
+<h2 id="Value-Function-Approximation"><a href="#Value-Function-Approximation" class="headerlink" title="Value Function Approximation"></a>Value Function Approximation</h2><p>In order to decrease dimension, we need to approximate the value function by another function. For example, we may use a linear function to approximate the value function, which just like this:</p>
+<blockquote>
+<p>Q(s,a) = f(s,a) = w1s + w2a + b</p>
+</blockquote>
+<p>Thus we get Q(s,a) approximates to f(s,a:w)</p>
+<h2 id="Dimensionality-Reduction"><a href="#Dimensionality-Reduction" class="headerlink" title="Dimensionality Reduction"></a>Dimensionality Reduction</h2><p>As is often the case, the dimension of actions are obviously smaller than the dimension of states. In order to update value Q more efficiently, we need to reduce the dimension of states. just like this form:</p>
+<blockquote>
+<p>Q(s) approximates to f(s,w) where s is a vector: [Q(s,a1),…,Q(s,an)].</p>
+</blockquote>
+<h2 id="Training-Q-Network-by-DQN"><a href="#Training-Q-Network-by-DQN" class="headerlink" title="Training Q-Network by DQN"></a>Training Q-Network by DQN</h2><p>The typical deep neural network method is an optimal problem. The optimal target of neural network is the loss function, which is the bias between label and output. As the name suggests, the optimal of loss function is attempting to minimize the bias. We will need a lot of samples to train the parameters of neural network by policy gradient by back propagation.</p>
+<p>Following the basic idea of neural network, we regard the target value Q as a label. And then trying to approximate value Q to target value Q.</p>
+<p>Thus, the training loss function is:</p>
+<p><img src="http://img.blog.csdn.net/20170814092208059?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd2lsbGlhbXlpOTY=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<h2 id="Naive-DQN"><a href="#Naive-DQN" class="headerlink" title="Naive DQN"></a>Naive DQN</h2><p><img src="http://img.blog.csdn.net/20170814092150986?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd2lsbGlhbXlpOTY=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p>The basic idea of naive DQN is trying to train Q-Learning and SGD algorithm synchronously. Store all the sample and then randomly sampling, which is what we called experience replay. Learning by reflecting.</p>
+<p>Trial for several times and then store all the data. Then do SGD by randomly sampling when getting a considerable number of data.</p>
+<h1 id="Improved-DQN"><a href="#Improved-DQN" class="headerlink" title="Improved DQN"></a>Improved DQN</h1><p>There are several different methods used to improve the efficiency of DQN. Double DQN, Prioritied Replay and Dueling Network are three instinctive methods.</p>
+<h2 id="Nature-DQN"><a href="#Nature-DQN" class="headerlink" title="Nature DQN"></a>Nature DQN</h2><p>Nature DQN means the methods mentioned on (Human Level Control …) by DeepMind. Nature DQN is also based on experience replay. The difference between it and naive DQN is that nature DQN introduced a Target Q network. Like this:</p>
+<p><img src="http://img.blog.csdn.net/20170814092135240?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd2lsbGlhbXlpOTY=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p>In order to decrease the relevance between target Q and current value Q, they designed a target Q network with updating delay, which means update the parameters after trained for a time.</p>
+<p>The content of double DQN, prioritied replay and dueling network will be discussed later. This part remains to be seen after reading those papers.</p>
+<p>And also, I will give a base summary of policy gradient method and A3C series about deep reinforcement learning.</p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p>[1] Mnih, Volodymyr, et al. “Playing atari with deep reinforcement learning.” arXiv preprint arXiv:1312.5602 (2013).</p>
+<p>[2] Mnih, Volodymyr, et al. “Human-level control through deep reinforcement learning.” Nature 518.7540 (2015): 529-533.</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="williamyi96.github.io/2018/02/12/Artificial-General-Intelligence-MIT/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -343,42 +537,25 @@
       
         
           
-            <p>Nowadays, deep learning methods have achieved human even superhuman performance on several tasks such as image classification, game-playing on Atari 2600. However, we are still far away from human-like artificial intelligence.</p>
-<p>This blog is the notes and thinking of the first class of Artificial General Intelligence (AGI). I will review the shocking opinion mentioned on this course.</p>
+            <p>Nowadays, deep learning methods have achieved human even superhuman performance on several tasks such as image classification, game-playing on Atari 2600. However, we are still far away from human-like artificial intelligence.<br>This blog is the notes and thinking of the first class of Artificial General Intelligence (AGI). I will review the shocking opinion mentioned on this course.</p>
 <h2 id="Deep-learning-is-a-kind-of-representation-learning"><a href="#Deep-learning-is-a-kind-of-representation-learning" class="headerlink" title="Deep learning is a kind of representation learning"></a>Deep learning is a kind of representation learning</h2><p>Deep learning is a kind of representation learning just like my tutor once said (The core elements of deep learning is representation and computing while the major parts of cognitive science is the understanding of objects). Representation learning is a kind of machine learning. Machine learning is one kind of artificial intelligence. </p>
-<h2 id="Difference-between-biological-brains-and-ANN"><a href="#Difference-between-biological-brains-and-ANN" class="headerlink" title="Difference between biological brains and ANN:"></a>Difference between biological brains and ANN:</h2><pre><code>1). **Parameters:** Human brains have ~10,000,000 times synapses than artificial neural network.
-
-2). **Topology:** Human brains have no &quot;layers&quot;. Topology is complicated.
-
-3). **Async:** The human brain works asynchronously, ANNs work synchronously.
-
-4). **Learning Algorithms:** ANNs use gradient descent for learning. Human brains use ... (we don&apos;t know).
-
-5). **Processing Speed:** Single biological neurons are slow, while standard neurons in ANNs are fast.
-
-6). **Power consumption:** Biological neural networks use very little power compared to artificial networks.
-
-7). **Stages:** Biological networks usually don&apos;t stop/start learning. ANNs have different fitting (train) and prediction (evaluation) phases.
-</code></pre><p>The similarity between them is they are both distributed computation on a large scale. </p>
+<h2 id="Difference-between-biological-brains-and-ANN"><a href="#Difference-between-biological-brains-and-ANN" class="headerlink" title="Difference between biological brains and ANN:"></a>Difference between biological brains and ANN:</h2><p>1). <strong>Parameters:</strong> Human brains have ~10,000,000 times synapses than artificial neural network.<br>2). <strong>Topology:</strong> Human brains have no “layers”. Topology is complicated.<br>3). <strong>Async:</strong> The human brain works asynchronously, ANNs work synchronously.<br>4). <strong>Learning Algorithms:</strong> ANNs use gradient descent for learning. Human brains use … (we don’t know).<br>5). <strong>Processing Speed:</strong> Single biological neurons are slow, while standard neurons in ANNs are fast.<br>6). <strong>Power consumption:</strong> Biological neural networks use very little power compared to artificial networks.<br>7). <strong>Stages:</strong> Biological networks usually don’t stop/start learning. ANNs have different fitting (train) and prediction (evaluation) phases.</p>
+<p>The similarity between them is they are both distributed computation on a large scale. </p>
 <h2 id="The-illustration-of-deep-learning-from-human-and-machine-is-full-of-insights"><a href="#The-illustration-of-deep-learning-from-human-and-machine-is-full-of-insights" class="headerlink" title="The illustration of deep learning from human and machine is full of insights."></a>The illustration of deep learning from human and machine is full of insights.</h2><p><img src="images/dl-human-machine.png" alt=""></p>
 <h2 id="Current-Challenge"><a href="#Current-Challenge" class="headerlink" title="Current Challenge"></a>Current Challenge</h2><ul>
-<li><p><strong>Transfer learning</strong>: Unable to transfer representation to most reasonably related domains except in specialized formulations.</p>
-<p>  • <strong>Understanding</strong>: Lacks “reasoning” or ability to truly derive “understanding” as previously defined on anything but specialized problem formulations. (Definition used: Ability to turn complex information to into simple, useful<br>information.)</p>
-</li>
-<li><p>Requires <strong>big</strong> data: inefficient at learning from data </p>
-</li>
-<li><p>Requires <strong>supervised</strong> data: costly to annotate real-world data</p>
-</li>
-<li><p><strong>Not fully automated</strong>: Needs hyperparameter tuning for training: learning rate, loss function, mini-batch size, training iterations, momentum, optimizer selection, etc.</p>
-</li>
-<li><p><strong>Reward</strong>: Defining a good reward function is difficult.</p>
-</li>
-<li><p><strong>Transparency</strong>: Neural networks are for the most part black boxes (for real world applications) even with tools that visualize various aspects of their operation.</p>
-</li>
-<li><p><strong>Edge cases</strong>: Deep learning is not good at dealing with edge cases.</p>
-</li>
+<li><strong>Transfer learning</strong>: Unable to transfer representation to most reasonably related domains except in specialized formulations.<br>  • <strong>Understanding</strong>: Lacks “reasoning” or ability to truly derive “understanding” as previously defined on anything but specialized problem formulations. (Definition used: Ability to turn complex information to into simple, useful information.)</li>
+<li>Requires <strong>big</strong> data: inefficient at learning from data </li>
+<li>Requires <strong>supervised</strong> data: costly to annotate real-world data</li>
+<li><strong>Not fully automated</strong>: Needs hyperparameter tuning for training: learning rate, loss function, mini-batch size, training iterations, momentum, optimizer selection, etc.</li>
+<li><strong>Reward</strong>: Defining a good reward function is difficult.</li>
+<li><strong>Transparency</strong>: Neural networks are for the most part black boxes (for real world applications) even with tools that visualize various aspects of their operation.</li>
+<li><strong>Edge cases</strong>: Deep learning is not good at dealing with edge cases.</li>
 </ul>
-<h2 id="Timeline"><a href="#Timeline" class="headerlink" title="Timeline"></a>Timeline</h2><p><img src="images/timeline-AGI.png" alt=""></p>
+<h2 id="Timeline"><a href="#Timeline" class="headerlink" title="Timeline"></a>Timeline</h2><!-- ![](images/timeline-AGI.png = 100) -->
+<!-- ![Course Timeline](images/timeline-AGI.png){:height="50%" width="50%"} -->
+<div align="left"><br><img src="images/timeline-AGI.png" width="80%" height="80%"><br></div>
+
+<p>Picture above is the timeline of Artificial General Intelligence of MIT. More info can refer to <a href="https://agi.mit.edu/" target="_blank" rel="noopener">https://agi.mit.edu/</a>.</p>
 
           
         
@@ -1120,7 +1297,7 @@ branch: [branch]
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
