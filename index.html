@@ -272,6 +272,136 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="williamyi96.github.io/2018/03/12/A-glimpse-of-Saliency-Detection/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kai Yi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avater.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Pursuing your dream">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/12/A-glimpse-of-Saliency-Detection/" itemprop="url">A glimpse of Saliency Detection</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-12T09:11:27+08:00">
+                2018-03-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Saliency detection is an vital visual problem. This post will review the basic ideas of saliency detection firstly. Then, I will give a demonstration of saliency detection by using Mathematica.</p>
+<p>Saliency detection is the problem that selecting the most salient areas in the image. And now I will illustrate the implementation of saliency detection with examples.</p>
+<p>The source code like this:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">i = the directory of input image;</span><br><span class="line"></span><br><span class="line">map = ImageSaliencyFilter[i] // ImageAdjust;</span><br><span class="line">Print[map];</span><br><span class="line">foreground = MaxDetect[map, .8];</span><br><span class="line">mask = GuidedFilter[foreground, i, 10, .05];</span><br><span class="line">maskC = Colorize[mask];</span><br><span class="line"></span><br><span class="line">Blend[&#123;i, maskC&#125;, 0.8];</span><br></pre></td></tr></table></figure>
+<p>The input image is following:</p>
+<p><img src="images/out_000132.jpg" alt=""></p>
+<p>The map is following:</p>
+<p><img src="images/saliency-detection.pdf" alt=""></p>
+<p>The mask image is following:</p>
+<p><img src="images/saliency-detection2.pdf" alt=""></p>
+<p>The End.</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="williamyi96.github.io/2018/02/12/A-Glimpse-of-Deep-Reinforcement-Learning-and-DQN/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -540,11 +670,11 @@ gama: the discount factor
             <p>Nowadays, deep learning methods have achieved human even superhuman performance on several tasks such as image classification, game-playing on Atari 2600. However, we are still far away from human-like artificial intelligence.<br>This blog is the notes and thinking of the first class of Artificial General Intelligence (AGI). I will review the shocking opinion mentioned on this course.</p>
 <h2 id="Deep-learning-is-a-kind-of-representation-learning"><a href="#Deep-learning-is-a-kind-of-representation-learning" class="headerlink" title="Deep learning is a kind of representation learning"></a>Deep learning is a kind of representation learning</h2><p>Deep learning is a kind of representation learning just like my tutor once said (The core elements of deep learning is representation and computing while the major parts of cognitive science is the understanding of objects). Representation learning is a kind of machine learning. Machine learning is one kind of artificial intelligence. </p>
 <h2 id="Difference-between-biological-brains-and-ANN"><a href="#Difference-between-biological-brains-and-ANN" class="headerlink" title="Difference between biological brains and ANN:"></a>Difference between biological brains and ANN:</h2><p>1). <strong>Parameters:</strong> Human brains have ~10,000,000 times synapses than artificial neural network.<br>2). <strong>Topology:</strong> Human brains have no “layers”. Topology is complicated.<br>3). <strong>Async:</strong> The human brain works asynchronously, ANNs work synchronously.<br>4). <strong>Learning Algorithms:</strong> ANNs use gradient descent for learning. Human brains use … (we don’t know).<br>5). <strong>Processing Speed:</strong> Single biological neurons are slow, while standard neurons in ANNs are fast.<br>6). <strong>Power consumption:</strong> Biological neural networks use very little power compared to artificial networks.<br>7). <strong>Stages:</strong> Biological networks usually don’t stop/start learning. ANNs have different fitting (train) and prediction (evaluation) phases.</p>
-<p>The similarity between them is they are both distributed computation on a large scale. </p>
-<h2 id="The-illustration-of-deep-learning-from-human-and-machine-is-full-of-insights"><a href="#The-illustration-of-deep-learning-from-human-and-machine-is-full-of-insights" class="headerlink" title="The illustration of deep learning from human and machine is full of insights."></a>The illustration of deep learning from human and machine is full of insights.</h2><p><img src="images/dl-human-machine.png" alt=""></p>
+<p>The similarity between them is they are both distributed computation on a large scale.</p>
+<h2 id="The-illustration-of-deep-learning-from-human-and-machine-is-full-of-insights"><a href="#The-illustration-of-deep-learning-from-human-and-machine-is-full-of-insights" class="headerlink" title="The illustration of deep learning from human and machine is full of insights"></a>The illustration of deep learning from human and machine is full of insights</h2><p><img src="images/dl-human-machine.png" alt=""></p>
 <h2 id="Current-Challenge"><a href="#Current-Challenge" class="headerlink" title="Current Challenge"></a>Current Challenge</h2><ul>
 <li><strong>Transfer learning</strong>: Unable to transfer representation to most reasonably related domains except in specialized formulations.<br>  • <strong>Understanding</strong>: Lacks “reasoning” or ability to truly derive “understanding” as previously defined on anything but specialized problem formulations. (Definition used: Ability to turn complex information to into simple, useful information.)</li>
-<li>Requires <strong>big</strong> data: inefficient at learning from data </li>
+<li>Requires <strong>big</strong> data: inefficient at learning from data</li>
 <li>Requires <strong>supervised</strong> data: costly to annotate real-world data</li>
 <li><strong>Not fully automated</strong>: Needs hyperparameter tuning for training: learning rate, loss function, mini-batch size, training iterations, momentum, optimizer selection, etc.</li>
 <li><strong>Reward</strong>: Defining a good reward function is difficult.</li>
@@ -1297,7 +1427,7 @@ branch: [branch]
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

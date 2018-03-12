@@ -79,16 +79,21 @@
 
 
 
-<meta name="description" content="Researcher on cognitive science, computer vision, machine learning, chaos and fractal.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Pursuing your dream">
-<meta property="og:url" content="williamyi96.github.io/tags/Basic-Skills/index.html">
+<meta name="description" content="Saliency detection is an vital visual problem. This post will review the basic ideas of saliency detection firstly. Then, I will give a demonstration of saliency detection by using Mathematica. Salien">
+<meta property="og:type" content="article">
+<meta property="og:title" content="A glimpse of Saliency Detection">
+<meta property="og:url" content="williamyi96.github.io/2018/03/12/A-glimpse-of-Saliency-Detection/index.html">
 <meta property="og:site_name" content="Pursuing your dream">
-<meta property="og:description" content="Researcher on cognitive science, computer vision, machine learning, chaos and fractal.">
+<meta property="og:description" content="Saliency detection is an vital visual problem. This post will review the basic ideas of saliency detection firstly. Then, I will give a demonstration of saliency detection by using Mathematica. Salien">
 <meta property="og:locale" content="en">
+<meta property="og:image" content="williamyi96.github.io/2018/03/12/A-glimpse-of-Saliency-Detection/images/out_000132.jpg">
+<meta property="og:image" content="williamyi96.github.io/2018/03/12/A-glimpse-of-Saliency-Detection/images/saliency-detection.pdf">
+<meta property="og:image" content="williamyi96.github.io/2018/03/12/A-glimpse-of-Saliency-Detection/images/saliency-detection2.pdf">
+<meta property="og:updated_time" content="2018-03-12T01:22:24.268Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Pursuing your dream">
-<meta name="twitter:description" content="Researcher on cognitive science, computer vision, machine learning, chaos and fractal.">
+<meta name="twitter:title" content="A glimpse of Saliency Detection">
+<meta name="twitter:description" content="Saliency detection is an vital visual problem. This post will review the basic ideas of saliency detection firstly. Then, I will give a demonstration of saliency detection by using Mathematica. Salien">
+<meta name="twitter:image" content="williamyi96.github.io/2018/03/12/A-glimpse-of-Saliency-Detection/images/out_000132.jpg">
 
 
 
@@ -118,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="williamyi96.github.io/tags/Basic-Skills/"/>
+  <link rel="canonical" href="williamyi96.github.io/2018/03/12/A-glimpse-of-Saliency-Detection/"/>
 
 
 
 
 
-  <title>Tag: Basic Skills | Pursuing your dream</title>
+  <title>A glimpse of Saliency Detection | Pursuing your dream</title>
   
 
 
@@ -143,7 +148,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -257,54 +262,151 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>Basic Skills<small>Tag</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="williamyi96.github.io/2018/03/12/A-glimpse-of-Saliency-Detection/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kai Yi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avater.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Pursuing your dream">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2018/02/04/Deploy-hexo-with-github/" itemprop="url">
-              
-                <span itemprop="name">Deploy hexo with github</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">A glimpse of Saliency Detection</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-02-04T22:47:47+08:00"
-              content="2018-02-04" >
-          02-04
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-12T09:11:27+08:00">
+                2018-03-12
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Saliency detection is an vital visual problem. This post will review the basic ideas of saliency detection firstly. Then, I will give a demonstration of saliency detection by using Mathematica.</p>
+<p>Saliency detection is the problem that selecting the most salient areas in the image. And now I will illustrate the implementation of saliency detection with examples.</p>
+<p>The source code like this:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">i = the directory of input image;</span><br><span class="line"></span><br><span class="line">map = ImageSaliencyFilter[i] // ImageAdjust;</span><br><span class="line">Print[map];</span><br><span class="line">foreground = MaxDetect[map, .8];</span><br><span class="line">mask = GuidedFilter[foreground, i, 10, .05];</span><br><span class="line">maskC = Colorize[mask];</span><br><span class="line"></span><br><span class="line">Blend[&#123;i, maskC&#125;, 0.8];</span><br></pre></td></tr></table></figure>
+<p>The input image is following:</p>
+<p><img src="images/out_000132.jpg" alt=""></p>
+<p>The map is following:</p>
+<p><img src="images/saliency-detection.pdf" alt=""></p>
+<p>The mask image is following:</p>
+<p><img src="images/saliency-detection2.pdf" alt=""></p>
+<p>The End.</p>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/02/12/A-Glimpse-of-Deep-Reinforcement-Learning-and-DQN/" rel="next" title="A Glimpse of Deep Reinforcement Learning and DQN">
+                <i class="fa fa-chevron-left"></i> A Glimpse of Deep Reinforcement Learning and DQN
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -312,6 +414,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -537,6 +643,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
