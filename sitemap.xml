@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>williamyi96.github.io/about/index.html</loc>
+    
+    <lastmod>2018-03-13T13:24:05.495Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>williamyi96.github.io/2018/03/12/A-glimpse-of-Saliency-Detection/</loc>
     
     <lastmod>2018-03-12T01:30:45.889Z</lastmod>
@@ -33,13 +40,6 @@
     <loc>williamyi96.github.io/2018/02/06/Get-the-mean-color-of-batch-pictures/</loc>
     
     <lastmod>2018-02-06T09:18:13.577Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>williamyi96.github.io/about/index.html</loc>
-    
-    <lastmod>2018-02-06T05:00:18.031Z</lastmod>
     
   </url>
   
